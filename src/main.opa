@@ -4,19 +4,17 @@ import opaque.user
 import opaque.mathjax
 import opaque.upskirt
 
-room = Network.cloud("room"): Network.network(string)
+room = Network.cloud("room"): Network.network(xhtml)
 
-@publish upskirt_entry(s) = 
-  do Debug.jlog("Upskirting entry...")
-  Upskirt.render_to_xhtml(s)
-
-@client broadcast(s: string) =
-  do Dom.transform([#output <- upskirt_entry(s)])
+@client broadcast(s) =
+  do Dom.transform([#output <- s])
   do Debug.jlog("Now reloading mathjax...")
   MathJax.reload(#output)
 
 update() =
-  do Network.broadcast(Dom.get_value(#entry), room)
+  do Debug.jlog("Upskirting entry...")
+  v = Upskirt.render_to_xhtml(Dom.get_value(#entry))
+  do Network.broadcast(v, room)
   Dom.clear_value(#entry)
 
 start() = 
