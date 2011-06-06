@@ -6,6 +6,9 @@ src/native.opa
 mathjax.opp
 src/mathjax.opa
 
+shjs.opp
+src/shjs.opa
+
 --mllopt $(PWD)/bsl/c/upskirt/*.o
 upskirt.opp
 src/upskirt.opa

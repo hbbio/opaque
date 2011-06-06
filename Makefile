@@ -50,6 +50,8 @@ plugins:
 # javascript bindings
 	$(E) Building mathjax bindings...
 	$(OPAPB) bsl/js/mathjax.js -o mathjax.opp
+	$(E) Building SHJS bindings...
+	$(OPAPB) bsl/js/shjs.js -o shjs.opp
 
 # Cleaning
 clean:
