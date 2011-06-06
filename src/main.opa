@@ -34,7 +34,7 @@ mainpage() = Resource.styled_page("Opaque blog - Main page", ["res/sh_nedit.min.
   <p>Result:</p><br/><div id=#output onready={_ -> Network.add_callback(broadcast, room)}></div>
   <br/>
   <div id=#inputarea>
-    <textarea rows=50 cols=80 id=#entry /><br/>
+    <textarea rows=20 cols=80 id=#entry /><br/>
     <button type="button" onclick={_ -> update()}>Submit</button>
   </div>
  )
