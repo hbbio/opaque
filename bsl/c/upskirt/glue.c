@@ -33,10 +33,11 @@ CAMLprim value caml_upskirt_render(value caml_input) {
   ups_markdown(ob, ib, &renderer, ~0);
   upshtml_free_renderer(&renderer);
 
-  /* Now smartypants */
-  ob2 = bufnew(OUTPUT_UNIT);
-  ob2->size = 0;
-  upshtml_smartypants(ob2, ob);
+  /* Disable smartypants (for now) */
+  //ob2 = bufnew(OUTPUT_UNIT);
+  //ob2->size = 0;
+  //upshtml_smartypants(ob2, ob);
+  ob2 = ob;
 
   /* Marshal to OCaml string & return */
   CAMLlocal1(caml_output);
@@ -45,7 +46,7 @@ CAMLprim value caml_upskirt_render(value caml_input) {
 
   bufrelease(ib);
   bufrelease(ob);
-  bufrelease(ob2);
+  // bufrelease(ob2);
 
   CAMLreturn(caml_output);
 }
