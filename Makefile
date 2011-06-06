@@ -28,6 +28,7 @@ cloud: build
 opaque:
 	$(OPAC) opaque.opack -o opaque.exe
 native: bsl/native.c
+# should handle building all this native crap better...
 	$(OCAMLC) bsl/native.c
 	$(Q)mv native.o bsl
 	$(OPAPB) bsl/native.ml -o native.opp
