@@ -2,15 +2,18 @@ package opaque.main
 import opaque.native
 import opaque.user
 import opaque.mathjax
+import opaque.upskirt
 
-unsafeStrToXhtml(s : string) = Xhtml.to_xhtml({content_unsafe = s})
-unsafeDomToXhtml(elem : dom) = unsafeStrToXhtml(Dom.get_value(elem))
+@publish upskirt_entry() = 
+  do Debug.jlog("Upskirting entry...")
+  Upskirt.render_to_xhtml(Dom.get_value(#entry))
 
-@client change() =
-  do Dom.transform([#output <- unsafeDomToXhtml(#entry)])
+@client reload_entry() =
+  v = upskirt_entry()
+  do Dom.transform([#output <- v])
   do Dom.clear_value(#entry)
-  do Debug.jlog("Reloading mathjax div...")
-  MathJax.reload(Dom.get_id(#output))
+  do Debug.jlog("Now reloading mathjax...")
+  MathJax.reload(#output)
 
 start() = 
   mem = get_mem_usage()
@@ -24,8 +27,8 @@ start() =
   <p>The server you're using is '{nodename}' (a {sysname}/{machine} machine, version {release})</p>
   <br/>
   <div id=#inputarea>
-    <input id=#entry  onnewline={_ -> change()} />
-    <div class="button" onclick={_ -> change()}>Submit</div>
+    <input id=#entry  onnewline={_ -> reload_entry()} />
+    <div class="button" onclick={_ -> reload_entry()}>Submit</div>
   </div>
   <div id=#output></div>
 

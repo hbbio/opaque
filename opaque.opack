@@ -1,13 +1,15 @@
 # bindings
---mllopt $(PWD)/bsl/c/native.o
+--mllopt $(PWD)/bsl/c/*.o
 native.opp
 src/native.opa
 
 mathjax.opp
 src/mathjax.opa
 
-# users
-src/user.opa
+--mllopt $(PWD)/bsl/c/upskirt/*.o
+upskirt.opp
+src/upskirt.opa
 
-# main
+# code
+src/user.opa
 src/main.opa
