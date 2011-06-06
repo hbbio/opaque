@@ -1,0 +1,6 @@
+# native libs
+--mllopt $(PWD)/bsl/native.o
+native.opp
+
+# main
+src/main.opa
