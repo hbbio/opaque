@@ -1,0 +1,7 @@
+*.o
+*~
+*.exe
+*.opp
+*.opx
+_build
+*.log
