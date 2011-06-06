@@ -21,6 +21,7 @@ CLOUD_OPTS?=--host localhost,2
 all: build
 build: plugins opaque
 run: build
+	$(E) Running normally...
 	./opaque.exe
 cloud: build
 	$(E) Running in cloud mode...
