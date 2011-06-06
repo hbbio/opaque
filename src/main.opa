@@ -4,16 +4,20 @@ import opaque.user
 import opaque.mathjax
 import opaque.upskirt
 
-@publish upskirt_entry() = 
-  do Debug.jlog("Upskirting entry...")
-  Upskirt.render_to_xhtml(Dom.get_value(#entry))
+room = Network.cloud("room"): Network.network(string)
 
-@client reload_entry() =
-  v = upskirt_entry()
-  do Dom.transform([#output <- v])
-  do Dom.clear_value(#entry)
+@publish upskirt_entry(s) = 
+  do Debug.jlog("Upskirting entry...")
+  Upskirt.render_to_xhtml(s)
+
+@client broadcast(s: string) =
+  do Dom.transform([#output <- upskirt_entry(s)])
   do Debug.jlog("Now reloading mathjax...")
   MathJax.reload(#output)
+
+update() =
+  do Network.broadcast(Dom.get_value(#entry), room)
+  Dom.clear_value(#entry)
 
 start() = 
   mem = get_mem_usage()
@@ -27,9 +31,9 @@ start() =
   <p>The server you're using is '{nodename}' (a {sysname}/{machine} machine, version {release})</p>
   <br/>
   <div id=#inputarea>
-    <input id=#entry  onnewline={_ -> reload_entry()} />
-    <div class="button" onclick={_ -> reload_entry()}>Submit</div>
+    <input id=#entry  onnewline={_ -> update()} />
+    <div class="button" onclick={_ -> update()}>Submit</div>
   </div>
-  <div id=#output></div>
+  <div id=#output onready={_ -> Network.add_callback(broadcast, room)}></div>
 
 server = Server.one_page_bundle("Opaque blog", [], [], start)
