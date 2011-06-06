@@ -1,7 +1,10 @@
-# native libs
---mllopt $(PWD)/bsl/native.o
+# bindings
+--mllopt $(PWD)/bsl/c/native.o
 native.opp
 src/native.opa
+
+mathjax.opp
+src/mathjax.opa
 
 # users
 src/user.opa

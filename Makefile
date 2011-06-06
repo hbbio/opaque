@@ -18,7 +18,7 @@ OCAMLC=$(Q)ocamlc
 CLOUD_OPTS?=--host localhost,2
 
 all: build
-build: native opaque
+build: plugins opaque
 run: build
 	./opaque.exe
 cloud: build
@@ -27,17 +27,19 @@ cloud: build
 # Building
 opaque:
 	$(OPAC) opaque.opack -o opaque.exe
-native: bsl/native.c
+plugins:
 # should handle building all this native crap better...
-	$(OCAMLC) bsl/native.c
-	$(Q)mv native.o bsl
-	$(OPAPB) bsl/native.ml -o native.opp
+	$(OCAMLC) bsl/c/native.c
+	$(Q)mv native.o bsl/c
+	$(OPAPB) bsl/c/native.ml -o native.opp
+# javascript bindings
+	$(OPAPB) bsl/js/mathjax.js -o mathjax.opp
 
 # Cleaning
 clean:
-	rm -rf *.opp bsl/*.o *.opx
+	rm -rf *.opp bsl/c/*.o *.opx
 	rm -rf *.exe _build _tracks *.log
-	rm -rf *~ bsl/*~ src/*~ res/*~
+	rm -rf *~ bsl/c/*~ bsl/js/*~ src/*~ res/*~
 clean-db:
 	rm -rf ~/.mlstate/opa-db-server
 	rm -rf ~/.mlstate/opaque.exe
