@@ -3,5 +3,8 @@
 native.opp
 src/native.opa
 
+# users
+src/user.opa
+
 # main
 src/main.opa
