@@ -17,21 +17,26 @@ OCAMLC=$(Q)ocamlc
 
 CLOUD_OPTS?=--host localhost,2
 
-all: native.opp opaque.exe
-run: opaque.exe
+all: build
+build: native opaque
+run: build
 	./opaque.exe
-cloud:
+cloud: build
 	$(OPACLOUD) $(CLOUD_OPTS) ./opaque.exe
 
 # Building
-opaque.exe:
+opaque:
 	$(OPAC) opaque.opack -o opaque.exe
-native.opp: bsl/native.c
+native: bsl/native.c
 	$(OCAMLC) bsl/native.c
 	$(Q)mv native.o bsl
 	$(OPAPB) bsl/native.ml -o native.opp
 
+# Cleaning
 clean:
 	rm -rf *.opp bsl/*.o *.opx
 	rm -rf *.exe _build _tracks *.log
 	rm -rf *~ bsl/*~ src/*~ res/*~
+clean-db:
+	rm -rf ~/.mlstate/opa-db-server
+	rm -rf ~/.mlstate/opaque.exe
