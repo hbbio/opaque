@@ -1,12 +1,5 @@
-
-NativeLib = {{
-  sysname = %%native.get_sys_sysname%%
-  nodename = %%native.get_sys_nodename%%
-  release = %%native.get_sys_release%%
-  machine = %%native.get_sys_machine%%
-
-  mem_usage = %%native.get_memory_usage%%
-}}
+package opaque.main
+import opaque.native
 
 start() = 
   mem = NativeLib.mem_usage()/(1024*1024) // in megabytes

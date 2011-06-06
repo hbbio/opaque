@@ -24,6 +24,6 @@ native.opp: bsl/native.c
 	$(OPAPB) bsl/native.ml -o native.opp
 
 clean:
-	rm -rf *.opp bsl/*.o
+	rm -rf *.opp bsl/*.o *.opx
 	rm -rf *.exe _build _tracks *.log
 	rm -rf *~ bsl/*~ src/*~ res/*~
