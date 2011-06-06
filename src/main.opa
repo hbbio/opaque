@@ -9,17 +9,15 @@ room = Network.cloud("room"): Network.network(xhtml)
 
 @client broadcast(s) =
   do Dom.transform([#output <- s])
-  do Debug.jlog("Now reloading mathjax and rehighlighting...")
   do MathJax.reload(#output)
   SHJS.highlight()
 
 update() =
-  do Debug.jlog("Upskirting entry...")
   v = Upskirt.render_to_xhtml(Dom.get_value(#entry))
   do Network.broadcast(v, room)
   Dom.clear_value(#entry)
 
-start() = 
+mainpage() = Resource.styled_page("Opaque blog - Main page", ["res/sh_nedit.min.css", "res/style.css"],
   mem = get_mem_usage()
   sysname  = get_sys_sysname()
   nodename = get_sys_nodename()
@@ -39,6 +37,16 @@ start() =
     <textarea rows=50 cols=80 id=#entry /><br/>
     <button type="button" onclick={_ -> update()}>Submit</button>
   </div>
+ )
 
-server = Server.one_page_bundle("Opaque blog", [@static_resource_directory("res")], 
+start =
+  | {path = [] ... }           -> mainpage()
+  | {path = ["admin" | _] ...} -> User.loginpage() 
+  | {path = _ ...}             -> mainpage()
+
+server = Server.of_bundle([@static_resource_directory("res")])
+server = Server.simple_dispatch(start)
+/*
+server = Server.one_page_bundle("Opaque blog",[@static_resource_directory("res")],
        ["res/sh_nedit.min.css", "res/style.css"], start)
+*/

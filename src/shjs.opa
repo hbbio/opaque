@@ -1,5 +1,8 @@
 package opaque.shjs
 
 @client SHJS = {{
-  highlight = %%shjs.shjs_highlight_doc%%
+  highlight_page = %%shjs.shjs_highlight_doc%%
+  highlight() = 
+    do Debug.jlog("Rehighlighting page")
+    highlight_page()
 }}
