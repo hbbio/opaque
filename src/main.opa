@@ -1,6 +1,6 @@
 package opaque.main
-import opaque.native
 import opaque.user
+import opaque.native
 import opaque.mathjax
 import opaque.shjs
 import opaque.upskirt
@@ -9,7 +9,7 @@ room = Network.cloud("room"): Network.network(xhtml)
 
 @client broadcast(s) =
   do Dom.transform([#output <- s])
-  do Debug.jlog("Now reloading mathjax...")
+  do Debug.jlog("Now reloading mathjax and rehighlighting...")
   do MathJax.reload(#output)
   SHJS.highlight()
 
@@ -39,7 +39,6 @@ start() =
     <textarea rows=50 cols=80 id=#entry /><br/>
     <button type="button" onclick={_ -> update()}>Submit</button>
   </div>
-
 
 server = Server.one_page_bundle("Opaque blog", [@static_resource_directory("res")], 
        ["res/sh_nedit.min.css", "res/style.css"], start)
