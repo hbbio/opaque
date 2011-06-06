@@ -1,0 +1,21 @@
+opaque: a blog written in OPA
+
+Currently posix only.
+
+BUILDING
+ make
+
+Then you can run it with:
+ make run
+
+Or:
+ make cloud OPTS=...
+
+where 'OPTS' are the options you would normally give to opa-cloud. By
+default it just launches two instances on localhost. Make sure your
+own ssh public key is in your `~/.ssh/authorized_keys`:
+
+    $ cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
+
+Admin password will be generated on the first run, and output to
+server debug console.
