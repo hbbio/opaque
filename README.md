@@ -60,7 +60,7 @@ relentless onlslaught of crazed visitors 24/7. Let the cloud save you:
      $ make cloud CLOUD_OPTS=...
 
 where 'CLOUD_OPTS' are the options you would normally give to
-opa-cloud. By default it just launches two instances on
+`opa-cloud`. By default it just launches two instances on
 localhost. Make sure your own ssh public key is in your
 `~/.ssh/authorized_keys`:
 
