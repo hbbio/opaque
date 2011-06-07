@@ -55,7 +55,7 @@ RUN IN THE CLOUD! THE CLOOOOOUUUD
 
 Naturally your blog is so popular (due to *you* being *awesome*) that
 any normal server by its lonesome would never be able to handle the
-relentless onlslaught of crazed visitors 24/7. Let the cloud save you:
+relentless onslaught of crazed visitors 24/7. Let the cloud save you:
 
      $ make cloud CLOUD_OPTS=...
 
