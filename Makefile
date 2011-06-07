@@ -9,7 +9,7 @@ E=@echo
 MV=mv
 
 # OPA binaries
-OPAPREFIX=/opt/mlstate/bin
+OPAPREFIX=/usr/local/bin
 OPAC=$(Q)$(OPAPREFIX)/opa
 OPAPB=$(Q)$(OPAPREFIX)/opa-plugin-builder
 OPACLOUD=$(Q)$(OPAPREFIX)/opa-cloud
