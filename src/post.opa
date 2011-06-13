@@ -13,12 +13,13 @@ db /posts : intmap(Post.post)
 
 @server Post = {{
 
-  insert_post(p) = /posts[?] <- p
+  insert_new_post(p) = /posts[?] <- p
+  update_post(i,p)   = /posts[i] <- p
   get_posts() = /posts
   get_post(i) = ?/posts[i]
 
   posts_to_list() =
-    Map_make(Int.order).To.val_list(get_posts())
+    List.rev(Map_make(Int.order).To.val_list(get_posts()))
 
   to_xhtml(p) =
     content = Upskirt.render_to_xhtml(p.content)

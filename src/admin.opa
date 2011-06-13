@@ -11,7 +11,6 @@ import opaque.bsl.mathjax
 import opaque.bsl.shjs
 import opaque.bsl.upskirt
 
-
 // User types and user database
 type Admin.user   = { passwd: string }
 type Admin.status = { loggedin: string } / { notloggedin }
@@ -51,9 +50,9 @@ Admin = {{
   /* Main administrative page */
   adminpage() = 
     Layout.styled_page("Admin page",
+      <h3><a onclick={_ -> newpost()}>Create new post</a></h3>
       <h3><a onclick={_ -> changepw()}>Change password</a></h3>
       <h3><a onclick={_ -> logout()}>Logout</a></h3>
-      <h3><a onclick={_ -> newpost()}>New post</a></h3>
     )
 
   /* Changing passwords */
@@ -70,14 +69,22 @@ Admin = {{
     Layout.transform_content(update_form)
 
   /* New posts */
+  post_from_dom() = { title   = Dom.get_value(#post_title);
+                      date    = Date.now();
+                      content = Dom.get_value(#post_content);
+                      author  = Config.author }
+
   @private @publish update_preview() =
-  p : Post.post = { title   = Dom.get_value(#post_title);
-                    date    = Date.now();
-                    content = Dom.get_value(#post_content);
-                    author  = Config.author }
-  do Dom.transform([#preview_output <- Post.to_xhtml(p)])
-  do MathJax.reload(#preview_output)
-  SHJS.highlight()
+    do Dom.transform([#preview_output <- Post.to_xhtml(post_from_dom())])
+    do MathJax.reload(#preview_output)
+    SHJS.highlight()
+
+  @private save_post() =
+    do Post.insert_new_post(post_from_dom())
+    Layout.transform_content(
+      <h1>Post saved</h1><br />
+      <h3><a href="/admin">Go back to admin page</a></h3>
+    )
 
   newpost() =
     post_form() =
@@ -85,7 +92,7 @@ Admin = {{
         <input cols=80 id=#post_title /><br />
         <textarea rows=20 cols=80 id=#post_content /><br />
         <button type="button" onclick={_ -> update_preview()}>Preview</button><br />
-        <button type="button" >Publish</button><br />
+        <button type="button" onclick={_ -> save_post()}>Publish</button><br />
         <h3><a href="/admin">Go back to admin page</a></h3>
       </div>
       <br/>
