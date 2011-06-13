@@ -13,7 +13,7 @@ Layout = {{
     <div id=#post>{Post.to_xhtml(p)}</div>
 
   @client transform_content(s) =
-    Dom.transform([#content <- s])
+    Dom.transform([#page_content <- s])
 
   @server default_layout(content) = 
     mem      = get_mem_usage()
@@ -31,7 +31,7 @@ Layout = {{
       <a href="/">{Config.author}</a>
       <a class="extra" href="/">home</a>
     </div>
-    <div id=#content>{content}</div>
+    <div id=#page_content>{content}</div>
     <div class="footer">
       <div class="contact">
         <p>

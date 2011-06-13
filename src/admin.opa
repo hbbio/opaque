@@ -1,6 +1,13 @@
 package opaque.admin
 import widgets.loginbox
+
 import opaque.layout
+
+// plugins
+import opaque.bsl.native
+import opaque.bsl.mathjax
+import opaque.bsl.shjs
+import opaque.bsl.upskirt
 
 // User types and user database
 type Admin.user   = { passwd: string }
@@ -24,12 +31,13 @@ Admin = {{
 
   /* Main login page */
   mainpage() =
-    (t, p) = if is_logged_in() then ("Admin page", adminpage()) else ("Login page", loginbox())
-    Layout.styled_page(t, p)
+    if is_logged_in() then adminpage() else loginbox()
 
   /* Login box and login check */
   loginbox() = 
-    <div id=#login_box>{WLoginbox.html(WLoginbox.default_config, "login_box", login, Option.none)}</div>
+    Layout.styled_page("Login page",
+      <div id=#login_box>{WLoginbox.html(WLoginbox.default_config, "login_box", login, Option.none)}</div>
+    )
   login(username, pass) =
     do match ?/users[username] with
       | {some = u} -> if u.passwd == Crypto.Hash.sha2(pass) then
@@ -37,31 +45,51 @@ Admin = {{
       | _ -> void
     Client.reload()
 
-
   /* Main administrative page */
   adminpage() = 
-    <h3><a onclick={_ -> changepw()}>Change password</a></h3>
-    <h3><a onclick={_ -> logout()}>Logout</a></h3>
+    Layout.styled_page("Admin page",
+      <h3><a onclick={_ -> changepw()}>Change password</a></h3>
+      <h3><a onclick={_ -> logout()}>Logout</a></h3>
+      <h3><a onclick={_ -> newpost()}>New post</a></h3>
+    )
 
   /* Changing passwords */
   changepw() =
     update_db(p) =
       username = get_logged_in()
       do /users[username] <- { passwd = Crypto.Hash.sha2(p) }
-      do Client.reload()
       do Debug.jlog("Updated password for user '" ^ username ^ "'")
-      Layout.transform_content(mainpage())
+      Client.reload()
     update_form =
       <h3>New password:</h3><br />
       <input id=#newpasswd /><br />
       <button type="button" onclick={_ -> update_db(Dom.get_value(#newpasswd))}>Submit</button>
     Layout.transform_content(update_form)
 
+  /* New posts */
+  @private @publish update_preview() =
+  v = Upskirt.render_to_xhtml(Dom.get_value(#post_entry))
+  do Dom.transform([#preview_output <- v])
+  do MathJax.reload(#preview_output)
+  SHJS.highlight()
+
+  post_form() = 
+    <div id=#inputarea>
+      <textarea rows=20 cols=80 id=#post_entry /><br/>
+      <button type="button" onclick={_ -> update_preview()}>Preview</button><br />
+      <button type="button" >Publish</button>
+      <h3><a href="/admin">Go back to admin page</a></h3>
+    </div>
+    <br/>
+    <p>Preview:</p><br/><div id=#preview_output></div>
+
+  newpost() =
+    Layout.transform_content(post_form())
+
   /* Logout */
   logout() =
     do UserContext.change(( _ -> { notloggedin }), state)
     Client.reload()
-
 
   /* Initializes the admin user */
   @server init_admin_user() =
