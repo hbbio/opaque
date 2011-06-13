@@ -38,7 +38,7 @@ db /posts : intmap(Post.post)
     content = Upskirt.render_to_xhtml(p.content)
     <div id=#post onready={_ -> SHJS.highlight()}>
       <h1>{p.title}</h1>
-      <p class="meta">{Date.to_string(p.date)}, by {p.author}</p>
+      <p class="meta">Posted on {Date.to_string(p.date)}, by {p.author}</p>
       <>{content}</>
     </div>
 }}
