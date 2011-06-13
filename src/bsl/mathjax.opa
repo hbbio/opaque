@@ -1,4 +1,4 @@
-package opaque.mathjax
+package opaque.bsl.mathjax
 
 @client MathJax = {{
   reload_id = %%mathjax.mj_reload_dom%%

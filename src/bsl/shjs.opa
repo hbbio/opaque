@@ -1,4 +1,4 @@
-package opaque.shjs
+package opaque.bsl.shjs
 
 @client SHJS = {{
   highlight_page = %%shjs.shjs_highlight_doc%%

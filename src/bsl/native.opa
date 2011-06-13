@@ -1,4 +1,4 @@
-package opaque.native
+package opaque.bsl.native
 
 NativeLib = {{
   sysname = %%native.get_sys_sysname%%

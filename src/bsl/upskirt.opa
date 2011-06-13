@@ -1,4 +1,4 @@
-package opaque.upskirt
+package opaque.bsl.upskirt
 
 @server Upskirt = {{
   render             = %%upskirt.render_str%%

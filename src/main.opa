@@ -1,9 +1,11 @@
 package opaque.main
 import opaque.admin
-import opaque.native
-import opaque.mathjax
-import opaque.shjs
-import opaque.upskirt
+
+// plugins
+import opaque.bsl.native
+import opaque.bsl.mathjax
+import opaque.bsl.shjs
+import opaque.bsl.upskirt
 
 room = Network.cloud("room"): Network.network(xhtml)
 
