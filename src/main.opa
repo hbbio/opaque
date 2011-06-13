@@ -41,12 +41,8 @@ mainpage() = Resource.styled_page("Opaque blog - Main page", ["res/sh_nedit.min.
 
 start =
   | {path = [] ... }           -> mainpage()
-  | {path = ["admin" | _] ...} -> User.loginpage() 
+  | {path = ["admin" | _] ...} -> User.mainpage() 
   | {path = _ ...}             -> mainpage()
 
 server = Server.of_bundle([@static_resource_directory("res")])
 server = Server.simple_dispatch(start)
-/*
-server = Server.one_page_bundle("Opaque blog",[@static_resource_directory("res")],
-       ["res/sh_nedit.min.css", "res/style.css"], start)
-*/

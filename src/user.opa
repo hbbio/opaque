@@ -12,26 +12,30 @@ User = {{
 
   @private state = UserContext.make({ notloggedin } : User.status)
 
-  /* Get the current user status 'logged in, or not' */
+  /* Get the current user status - 'logged in, or not' */
   get_status() = UserContext.execute((a -> a), state)
+  is_logged_in() =
+    match get_status() with
+      | {loggedin = _} -> true
+      | _              -> false
 
   /* Main login page */
-  loginpage() = Resource.html("User page",<div id=#login_box>{loginbox()}</div>)
+  mainpage() =
+    (t, p) = if is_logged_in() then ("User page", userpage()) else ("Login page", loginbox())
+    Resource.html(t, p)
 
-  /* Login and login box */
+  /* Login box and login check */
   loginbox() = 
-    opt = match get_status() with
-            | {loggedin = _} -> Option.some(<><a onclick={_ -> logout()}>Logout</a></>)
-            | _ -> Option.none
-    WLoginbox.html(WLoginbox.default_config, "login_box", login, opt)
-
+    <div id=#login_box>{WLoginbox.html(WLoginbox.default_config, "login_box", login, Option.none)}</div>
   login(username, pass) =
-    user = ?/users[username]
-    do match user with
+    do match ?/users[username] with
       | {some = u} -> if u.passwd == Crypto.Hash.sha2(pass) then
                          UserContext.change(( _ -> { loggedin = username }), state)
       | _ -> void
     Client.reload()
+
+  userpage() = 
+    <h3><a onclick={_ -> logout()}>Logout</a></h3>
 
   /* Logout */
   logout() =
