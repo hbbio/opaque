@@ -1,17 +1,17 @@
 # bindings
 --mllopt $(PWD)/bsl/c/upskirt/*.o
 upskirt.opp
-src/upskirt.opa
+src/bsl/upskirt.opa
 
 --mllopt $(PWD)/bsl/c/*.o
 native.opp
-src/native.opa
+src/bsl/native.opa
 
 mathjax.opp
-src/mathjax.opa
+src/bsl/mathjax.opa
 
 shjs.opp
-src/shjs.opa
+src/bsl/shjs.opa
 
 # code
 src/user.opa
