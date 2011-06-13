@@ -76,8 +76,7 @@ Admin = {{
 
   @private @publish update_preview() =
     do Dom.transform([#preview_output <- Post.to_xhtml(post_from_dom())])
-    do MathJax.reload(#preview_output)
-    SHJS.highlight()
+    MathJax.reload(#preview_output)
 
   @private save_post() =
     do Post.insert_new_post(post_from_dom())
