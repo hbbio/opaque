@@ -1,5 +1,6 @@
 package opaque.admin
 import widgets.loginbox
+import opaque.layout
 
 // User types and user database
 type Admin.user   = { passwd: string }
@@ -22,7 +23,7 @@ Admin = {{
   /* Main login page */
   mainpage() =
     (t, p) = if is_logged_in() then ("User page", adminpage()) else ("Login page", loginbox())
-    Resource.html(t, p)
+    Layout.styled_page(t, p)
 
   /* Login box and login check */
   loginbox() = 
