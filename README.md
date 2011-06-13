@@ -37,6 +37,11 @@ POSIX only at the moment. You'd just need to replace the
 work somewhere else, really. Alas, OPA isn't available for windows yet
 anyway.
 
+Configuring
+===========
+
+Edit the variables in the top-level `config.opa` file for your blog.
+
 Running
 =======
 
@@ -91,6 +96,8 @@ If you want to clean everything, run:
 Bugs & Misc
 ===========
 
+ * No RSS
+ * Google analytics would be nice
  * There's some weird behavior with mathjax ATM where you need to
    double-escape backslashes in order to use inline/block style
    math. So, don't use `\[\alpha\]`, use `\\[\alpha\\]` and it should
