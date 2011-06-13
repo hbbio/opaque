@@ -48,7 +48,9 @@ Or simply:
 
      $ ./opaque.exe
 
-which will start the HTTP server on port 8080 by default.
+which will start the HTTP server on port 8080 by default. Admin
+password will be generated on the first run, and output to server
+debug console (see 'Destroying DB data' to clean it.)
 
 RUN IN THE CLOUD! THE CLOOOOOUUUD
 ---------------------------------
@@ -66,8 +68,18 @@ localhost. Make sure your own ssh public key is in your
 
      $ cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
 
-Admin password will be generated on the first run, and output to
-server debug console.
+Example: I have two debian machines, `pylon1` and `pylon2`. It's easy to run the system
+on both of them by doing:
+
+     $ make cloud CLOUD_OPTS="--host pylon1 --host pylon2 --haproxy /usr/sbin/haproxy"
+
+Note the path to `haproxy`, which on debian at least will be in
+`/usr/sbin` which resides outside of `$PATH` by default.
+
+After doing this, you can independently browse to each server with or
+without the proxy (e.g. `http://pylon1:8080` or `http://pylon1:8081`
+or `http://pylon2:8081`) and you'll still get things like realtime
+updates, even on different servers (try it yourself!)
 
 Destroying DB data
 ==================
