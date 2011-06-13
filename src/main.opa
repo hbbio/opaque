@@ -8,7 +8,8 @@ import opaque.config
 import opaque.post
 
 mainpage() = 
-  toListItem(v) = <li><span>{Date.to_string(v.date)}</span> - {v.title}</li>
+  toListItem((i,v)) =
+    <li><span>{Date.to_string(v.date)}</span> - <a href="/post/{Int.to_string(i)}">{v.title}</a></li>
   Layout.styled_page(Config.title,
   <h1>Blog Posts</h1>
   <ul class="posts">

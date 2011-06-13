@@ -22,7 +22,7 @@ db /posts : intmap(Post.post)
   get_posts() = /posts
   get_post(i) = ?/posts[i]
   posts_to_list() =
-    List.rev(Map_make(Int.order).To.val_list(get_posts()))
+    List.rev(Map_make(Int.order).To.assoc_list(get_posts()))
 
   postpage(x) = 
     match Parser.int(x) with
