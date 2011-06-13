@@ -96,6 +96,8 @@ If you want to clean everything, run:
 Bugs & Misc
 ===========
 
+ * Email encryption/obfuscation would be nice (without running upskirt on
+   every page render; is there a way to do that at compile time?)
  * No RSS
  * Google analytics would be nice
  * There's some weird behavior with mathjax ATM where you need to
