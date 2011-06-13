@@ -12,6 +12,9 @@ Layout = {{
   post_layout(p) = 
     <div id=#post>{Post.to_xhtml(p)}</div>
 
+  @client transform_content(s) =
+    Dom.transform([#content <- s])
+
   @server default_layout(content) = 
     mem      = get_mem_usage()
     sysname  = get_sys_sysname()
@@ -28,7 +31,7 @@ Layout = {{
       <a href="/">{Config.author}</a>
       <a class="extra" href="/">home</a>
     </div>
-    <>{content}</>
+    <div id=#content>{content}</div>
     <div class="footer">
       <div class="contact">
         <p>
