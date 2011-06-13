@@ -1,5 +1,5 @@
 package opaque.main
-import opaque.user
+import opaque.admin
 import opaque.native
 import opaque.mathjax
 import opaque.shjs
@@ -41,7 +41,7 @@ mainpage() = Resource.styled_page("Opaque blog - Main page", ["res/sh_nedit.min.
 
 start =
   | {path = [] ... }           -> mainpage()
-  | {path = ["admin" | _] ...} -> User.mainpage() 
+  | {path = ["admin" | _] ...} -> Admin.mainpage() 
   | {path = _ ...}             -> mainpage()
 
 server = Server.of_bundle([@static_resource_directory("res")])

@@ -1,16 +1,16 @@
-package opaque.user
+package opaque.admin
 import widgets.loginbox
 
 // User types and user database
-type User.user   = { passwd: string }
-type User.status = { loggedin: string } / { notloggedin }
-type User.info   = UserContext.t(User.status)
+type Admin.user   = { passwd: string }
+type Admin.status = { loggedin: string } / { notloggedin }
+type Admin.info   = UserContext.t(Admin.status)
 
-db /users : stringmap(User.user)
+db /users : stringmap(Admin.user)
 
-User = {{
+Admin = {{
 
-  @private state = UserContext.make({ notloggedin } : User.status)
+  @private state = UserContext.make({ notloggedin } : Admin.status)
 
   /* Get the current user status - 'logged in, or not' */
   get_status() = UserContext.execute((a -> a), state)
@@ -21,7 +21,7 @@ User = {{
 
   /* Main login page */
   mainpage() =
-    (t, p) = if is_logged_in() then ("User page", userpage()) else ("Login page", loginbox())
+    (t, p) = if is_logged_in() then ("User page", adminpage()) else ("Login page", loginbox())
     Resource.html(t, p)
 
   /* Login box and login check */
@@ -34,7 +34,7 @@ User = {{
       | _ -> void
     Client.reload()
 
-  userpage() = 
+  adminpage() = 
     <h3><a onclick={_ -> logout()}>Logout</a></h3>
 
   /* Logout */
@@ -47,11 +47,11 @@ User = {{
     match ?/users["admin"] with
       | {none} -> // NOTE: remove when done
         pass = Random.string(8)
-        admin : User.user = { passwd = Crypto.Hash.sha2(pass) }
+        admin : Admin.user = { passwd = Crypto.Hash.sha2(pass) }
         do Debug.jlog("Creating admin user, password is: '" ^ pass ^ "'")
         /users["admin"] <- admin
       | _ -> void // NOTE: remove when done
 }}
 
 // make sure we create the admin user
-do User.init_admin_user()
+do Admin.init_admin_user()

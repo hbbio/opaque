@@ -14,5 +14,5 @@ shjs.opp
 src/bsl/shjs.opa
 
 # code
-src/user.opa
+src/admin.opa
 src/main.opa
