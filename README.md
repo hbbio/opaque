@@ -22,7 +22,7 @@ You will need:
  * OCaml (3.12)
  * A C compiler
 
-You shouldn't need anything special if you have OPA installed. Just do:
+Then do:
 
      $ make
 
