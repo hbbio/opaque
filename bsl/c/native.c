@@ -3,7 +3,7 @@
 #include <caml/alloc.h>
 #include <caml/memory.h>
 
-CAMLprim value get_memory_usage() {
+CAMLprim value opaque_get_memory_usage() {
   CAMLparam0();
 
   static struct rusage usage;
@@ -26,7 +26,7 @@ static void uname_init() {
   return;
 } 
 
-CAMLprim value get_sys_sysname() {
+CAMLprim value opaque_get_sys_sysname() {
   CAMLparam0();
   CAMLlocal1(str);
 
@@ -36,7 +36,7 @@ CAMLprim value get_sys_sysname() {
   CAMLreturn(str);
 }
 
-CAMLprim value get_sys_nodename() {
+CAMLprim value opaque_get_sys_nodename() {
   CAMLparam0();
   CAMLlocal1(str);
 
@@ -46,7 +46,7 @@ CAMLprim value get_sys_nodename() {
   CAMLreturn(str);
 }
 
-CAMLprim value get_sys_release() {
+CAMLprim value opaque_get_sys_release() {
   CAMLparam0();
   CAMLlocal1(str);
 
@@ -56,7 +56,7 @@ CAMLprim value get_sys_release() {
   CAMLreturn(str);
 }
 
-CAMLprim value get_sys_machine() {
+CAMLprim value opaque_get_sys_machine() {
   CAMLparam0();
   CAMLlocal1(str);
 
