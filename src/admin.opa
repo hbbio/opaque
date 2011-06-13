@@ -73,17 +73,16 @@ Admin = {{
   do MathJax.reload(#preview_output)
   SHJS.highlight()
 
-  post_form() = 
-    <div id=#inputarea>
-      <textarea rows=20 cols=80 id=#post_entry /><br/>
-      <button type="button" onclick={_ -> update_preview()}>Preview</button><br />
-      <button type="button" >Publish</button>
-      <h3><a href="/admin">Go back to admin page</a></h3>
-    </div>
-    <br/>
-    <p>Preview:</p><br/><div id=#preview_output></div>
-
   newpost() =
+    post_form() =
+      <div id=#inputarea>
+        <textarea rows=20 cols=80 id=#post_entry /><br/>
+        <button type="button" onclick={_ -> update_preview()}>Preview</button><br />
+        <button type="button" >Publish</button>
+        <h3><a href="/admin">Go back to admin page</a></h3>
+      </div>
+      <br/>
+      <p>Preview:</p><br/><div id=#preview_output></div>
     Layout.transform_content(post_form())
 
   /* Logout */
