@@ -1,6 +1,7 @@
 package opaque.main
 import opaque.admin
 import opaque.layout
+import opaque.config
 
 // plugins
 import opaque.bsl.native
@@ -15,12 +16,12 @@ room = Network.cloud("room"): Network.network(xhtml)
   do MathJax.reload(#output)
   SHJS.highlight()
 
-update() =
+@publish update() =
   v = Upskirt.render_to_xhtml(Dom.get_value(#entry))
   do Network.broadcast(v, room)
   Dom.clear_value(#entry)
 
-mainpage() = Layout.styled_page("Blog - main page",
+mainpage() = Layout.styled_page(Config.title,
   <p>Result:</p><br/><div id=#output onready={_ -> Network.add_callback(broadcast, room)}></div>
   <br/>
   <div id=#inputarea>

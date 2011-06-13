@@ -6,14 +6,13 @@ import opaque.config
 Layout = {{
 
   @private styles = [ "res/style.css"
-                    , "res/sh_nedit.min.css"
-                    ]
+                    , "res/sh_nedit.min.css" ]
 
   styled_page(t, p) = Resource.styled_page(t, styles, default_layout(p))
   post_layout(p) = 
     <div id=#post>{Post.to_xhtml(p)}</div>
 
-  default_layout(content) = 
+  @server default_layout(content) = 
     mem      = get_mem_usage()
     sysname  = get_sys_sysname()
     nodename = get_sys_nodename()
