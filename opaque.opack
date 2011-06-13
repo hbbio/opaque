@@ -13,6 +13,11 @@ src/bsl/mathjax.opa
 shjs.opp
 src/bsl/shjs.opa
 
+# config
+config.opa
+
 # code
+src/layout.opa
+src/post.opa
 src/admin.opa
 src/main.opa

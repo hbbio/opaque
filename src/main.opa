@@ -1,5 +1,6 @@
 package opaque.main
 import opaque.admin
+import opaque.layout
 
 // plugins
 import opaque.bsl.native
@@ -19,20 +20,7 @@ update() =
   do Network.broadcast(v, room)
   Dom.clear_value(#entry)
 
-mainpage() = Resource.styled_page("Opaque blog - Main page", ["res/sh_nedit.min.css", "res/style.css"],
-  mem = get_mem_usage()
-  sysname  = get_sys_sysname()
-  nodename = get_sys_nodename()
-  release  = get_sys_release()
-  machine  = get_sys_machine()
-
-  <script type="text/javascript" src="res/sh_main.min.js"/>
-  <script type="text/javascript" src="res/sh_haskell.min.js"/>
-  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"/>
-
-  <h1>Hi! This server is using {mem}MB of RAM.</h1>
-  <p>The server you're using is '{nodename}' (a {sysname}/{machine} machine, version {release})</p>
-  <br/>
+mainpage() = Layout.styled_page("Blog - main page",
   <p>Result:</p><br/><div id=#output onready={_ -> Network.add_callback(broadcast, room)}></div>
   <br/>
   <div id=#inputarea>
