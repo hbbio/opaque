@@ -27,9 +27,10 @@ mainpage() =
  )
 
 start =
-  | {path = [] ... }           -> mainpage()
-  | {path = ["admin" | _] ...} -> Admin.mainpage() 
-  | {path = _ ...}             -> mainpage()
+  | {path = [] ... }             -> mainpage()
+  | {path = ["admin" | _] ...}   -> Admin.mainpage()
+  | {path = ["post", x | _] ...} -> Post.postpage(x)
+  | {path = _ ...}               -> mainpage()
 
 server = Server.of_bundle([@static_resource_directory("res")])
 server = Server.simple_dispatch(start)

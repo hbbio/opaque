@@ -1,16 +1,13 @@
 package opaque.layout
-import opaque.post
-import opaque.bsl.native
 import opaque.config
+import opaque.bsl.native
 
 Layout = {{
 
-  @private styles = [ "res/style.css"
-                    , "res/sh_nedit.min.css" ]
+  @private styles = [ "/res/style.css"
+                    , "/res/sh_nedit.min.css" ]
 
   styled_page(t, p) = Resource.styled_page(t, styles, default_layout(p))
-  post_layout(p) = 
-    <div id=#post>{Post.to_xhtml(p)}</div>
 
   @client transform_content(s) =
     Dom.transform([#page_content <- s])
@@ -22,8 +19,8 @@ Layout = {{
     release  = get_sys_release()
     machine  = get_sys_machine()
 
-    <script type="text/javascript" src="res/sh_main.min.js"/>
-    <script type="text/javascript" src="res/sh_haskell.min.js"/>
+    <script type="text/javascript" src="/res/sh_main.min.js"/>
+    <script type="text/javascript" src="/res/sh_haskell.min.js"/>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"/>
     <body>
     <div class="site">
@@ -58,4 +55,6 @@ Layout = {{
     </div>
   </div>
   </body>
+
+
 }}
