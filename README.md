@@ -14,6 +14,14 @@ Features
 
 Building
 ========
+
+You will need:
+
+ * OPA nightly compiler (this will always be up to date with it, and
+   not the stable compiler, sorry. Might as well help find bugs.)
+ * OCaml (3.12)
+ * A C compiler
+
 You shouldn't need anything special if you have OPA installed. Just do:
 
      $ make
