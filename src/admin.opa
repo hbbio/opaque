@@ -1,6 +1,8 @@
 package opaque.admin
 import widgets.loginbox
 
+import opaque.config
+import opaque.post
 import opaque.layout
 
 // plugins
@@ -8,6 +10,7 @@ import opaque.bsl.native
 import opaque.bsl.mathjax
 import opaque.bsl.shjs
 import opaque.bsl.upskirt
+
 
 // User types and user database
 type Admin.user   = { passwd: string }
@@ -68,17 +71,21 @@ Admin = {{
 
   /* New posts */
   @private @publish update_preview() =
-  v = Upskirt.render_to_xhtml(Dom.get_value(#post_entry))
-  do Dom.transform([#preview_output <- v])
+  p : Post.post = { title   = Dom.get_value(#post_title);
+                    date    = Date.now();
+                    content = Dom.get_value(#post_content);
+                    author  = Config.author }
+  do Dom.transform([#preview_output <- Post.to_xhtml(p)])
   do MathJax.reload(#preview_output)
   SHJS.highlight()
 
   newpost() =
     post_form() =
       <div id=#inputarea>
-        <textarea rows=20 cols=80 id=#post_entry /><br/>
+        <input cols=80 id=#post_title /><br />
+        <textarea rows=20 cols=80 id=#post_content /><br />
         <button type="button" onclick={_ -> update_preview()}>Preview</button><br />
-        <button type="button" >Publish</button>
+        <button type="button" >Publish</button><br />
         <h3><a href="/admin">Go back to admin page</a></h3>
       </div>
       <br/>
