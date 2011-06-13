@@ -4,7 +4,20 @@ import opaque.layout
 import opaque.config
 
 mainpage() = Layout.styled_page(Config.title,
-  <h1>Hello world!</h1>
+  <h1>Blog Posts</h1>
+  <ul class="posts">
+    <li>TODO</li>
+  </ul>
+
+  <h1>A section of things you want to list, like interviews</h1>
+  <ul class="posts">
+    <li><span>21 Dec 2012</span> - <a href="http://google.com">A link!</a></li>
+  </ul>
+
+  <h1>Another one, like your papers or open source projects</h1>
+  <ul class="posts">
+    <li><a href="http://github.com">blah:</a> my foobar project.</li>
+  </ul>
 )
 
 start =
