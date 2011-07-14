@@ -1,6 +1,6 @@
 package opaque.post
-import stdlib.date
-import stdlib.map
+import stdlib.core.date
+import stdlib.core.map
 
 import opaque.layout
 

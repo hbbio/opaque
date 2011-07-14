@@ -1,6 +1,6 @@
 package opaque.main
-import stdlib.map
-import stdlib.date
+import stdlib.core.map
+import stdlib.core.date
 
 import opaque.admin
 import opaque.layout

@@ -1,5 +1,7 @@
 package opaque.admin
-import widgets.loginbox
+import stdlib.widgets.loginbox
+import stdlib.web.client
+import stdlib.crypto
 
 import opaque.config
 import opaque.post
