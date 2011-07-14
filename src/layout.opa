@@ -39,7 +39,7 @@ Layout = {{
       </div>
       <div class="contact">
         <p>
-          {List.map( (l, t) -> <a href="{l}">{t}</a><br/>,Config.links)}
+          {List.map( (l, t) -> <a href="{l}">{t}</a><br/>, Config.links)}
         </p>
       </div>
 
